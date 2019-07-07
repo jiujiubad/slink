@@ -1,15 +1,14 @@
 # -*- coding: UTF-8 -*-
 import base64, requests, os
-root_dir = os.path.dirname(os.path.abspath(__file__))
-path = root_dir+'/text/q1.txt'
-
-res = root_dir+'/q6MjphdXRoX2NoYWlu'
+path = 'text/q1.txt'
+res = 'q6MjphdXRoX2NoYWlu'
 group = '0707-15点-q1'
 
 group = base64.urlsafe_b64encode(group).strip('=')
 try:
     with open(path,'r') as f:
         txt = f.read()
+        txt = (base64.b64decode(txt+'=='))
         txt = txt.strip().split('\n')
         yy = []
         for i in txt:
@@ -20,7 +19,8 @@ try:
             data = 'ssr://'+data2.strip('=')
             yy.append(data)
         d = '\n'.join(yy)
-        d = (base64.b64encode(d)).strip('=')
+        # d = (base64.b64encode(d)).strip('=')
+        # d = (base64.b64decode(d+'==')).decode('utf-8')
         print (d)
         with open(res,'w+') as ff:
             ff.writelines(d)
