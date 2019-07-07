@@ -1,10 +1,10 @@
 # -*- coding: UTF-8 -*-
 import base64, requests, os
 root_dir = os.path.dirname(os.path.abspath(__file__))
-path = root_dir+'/q.txt'
+path = root_dir+'/text/q1.txt'
 
 res = root_dir+'/q6MjphdXRoX2NoYWlu'
-group = '0707-15点-q'
+group = '0707-15点-q1'
 
 group = base64.urlsafe_b64encode(group).strip('=')
 try:

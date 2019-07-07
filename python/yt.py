@@ -1,7 +1,7 @@
 # -*- coding: UTF-8 -*-
 import base64, requests, os
 root_dir = os.path.dirname(os.path.abspath(__file__))
-path = root_dir+'/yt.txt'
+path = root_dir+'/text/yt.txt'
 
 res = root_dir+'/ytX2E6Y2hhY2hhMjA6dGxzMS4'
 group = '0707-15点-yt'
