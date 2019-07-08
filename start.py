@@ -3,8 +3,8 @@ import base64, requests, os, shutil, datetime
 
 # create the Backup folder
 s1 = str(datetime.datetime.now().year) + str("%02d"%(datetime.datetime.now().month))
-p1 = 'work/downloads/'+s1
-p2 = 'work/converted/'+s1
+p1 = 'work/converted/'+s1
+p2 = 'work/downloads/'+s1
 if not os.path.exists(p1):
     os.mkdir(p1) 
 if not os.path.exists(p2):
