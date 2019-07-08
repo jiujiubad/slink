@@ -18,3 +18,5 @@ Test batch of links：https://www.ssrtool.com/tool/check
 ## Result
 
 Github's subscription address, China Mobile Network can't open
+
+Effective after about five minutes
