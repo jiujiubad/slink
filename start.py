@@ -14,7 +14,7 @@ g = os.walk("work/import")
 for path,dir_list,file_list in g:  
     for file_name in file_list:  
 
-        # Backup the import
+        # 备份输入文件
         p3 = os.path.join(path, file_name) 
         shutil.copy(p3, p2) 
     
@@ -33,11 +33,11 @@ for path,dir_list,file_list in g:
                     data = 'ssr://'+data2.strip('=')
                     yy.append(data)
                 d = '\n'.join(yy)
-                # d = (base64.b64encode(d)).strip('=')
-                # d = (base64.b64decode(d+'==')).decode('utf-8')
+                # d = (base64.b64encode(d)).strip('=') #编码
+                # d = (base64.b64decode(d+'==')).decode('utf-8') #解码
                 print (d)
                 
-                # Backup the export
+                # 输出文件，并备份
                 res = 'work/export/'+file_name
                 with open(res,'w+') as ff:
                     ff.writelines(d)
