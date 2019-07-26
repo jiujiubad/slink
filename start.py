@@ -1,25 +1,25 @@
 # -*- coding: UTF-8 -*-
 import base64, requests, os, shutil, datetime
 
-# create the Backup folder
+# 创建目录
 s1 = str(datetime.datetime.now().year) + str("%02d"%(datetime.datetime.now().month))
-p1 = 'work/converted/'+s1
-p2 = 'work/downloads/'+s1
+p1 = 'work/bak-export/'+s1
+p2 = 'work/bak-import/'+s1
+p3 = 'work/subscribe'
 if not os.path.exists(p1):
     os.mkdir(p1) 
 if not os.path.exists(p2):
     os.mkdir(p2) 
+shutil.rmtree(p3)
+os.mkdir(p3)
 
-g = os.walk("work/import")  
+g = os.walk("work/today")  
 for path,dir_list,file_list in g:  
     for file_name in file_list:  
 
-        # 备份输入文件
-        p3 = os.path.join(path, file_name) 
-        shutil.copy(p3, p2) 
-    
+        f1 = os.path.join(path, file_name)     
         try:
-            with open(p3,'r') as f:
+            with open(f1,'r') as f:
                 txt = f.read()
                 txt = (base64.b64decode(txt+'=='))
                 txt = txt.strip().split('\n')
@@ -37,11 +37,44 @@ for path,dir_list,file_list in g:
                 # d = (base64.b64decode(d+'==')).decode('utf-8') #解码
                 print (d)
                 
-                # 输出文件，并备份
-                res = 'work/export/'+file_name
+                # 备份（输出的文件）
+                res = p3+'/'+file_name
                 with open(res,'w+') as ff:
                     ff.writelines(d)
+                # 备份（输出的文件）
                 shutil.copy(res, p1) 
+                # 备份（输入的文件)
+                shutil.copy(f1, p2) 
 
         except Exception as e:
             print (e)
+
+
+# 订阅文件（含ssr链接的txt版）
+dir_names = ['work/subscribe/']
+s1 = 'work/mac.txt'
+s2 = 'work/mac'
+
+file = open(s1,'w+') #清空文件
+for dirname in dir_names:
+    file_names = os.listdir(dirname)  
+    file = open(s1,'a+') #a+是追加，若文件不存在就创建
+
+    for filename in file_names:  
+        filepath = dirname + filename   
+        print filepath 
+        for line in open(filepath):  
+            file.writelines(line)  
+        file.write('\n')  
+    file.close() 
+
+# 订阅文件（base64加密版）
+try:
+    with open(s1,'r') as f:
+        d = f.read()
+        d = (base64.b64encode(d)).strip('=')
+        print (d)
+        with open(s2,'w+') as ff:
+            ff.writelines(d)
+except Exception as e:
+    print (e)
