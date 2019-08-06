@@ -3,9 +3,9 @@ import base64, requests, os, shutil, datetime
 
 # 创建目录
 s1 = str(datetime.datetime.now().year) + str("%02d"%(datetime.datetime.now().month))
-p1 = 'work/bak-export/'+s1
-p2 = 'work/bak-import/'+s1
-p3 = 'work/subscribe'
+p1 = 'work/link-export/'+s1
+p2 = 'work/link-import/'+s1
+p3 = 'work/sub-import'
 if not os.path.exists(p1):
     os.mkdir(p1) 
 if not os.path.exists(p2):
@@ -51,9 +51,9 @@ for path,dir_list,file_list in g:
 
 
 # 订阅文件（含ssr链接的txt版）
-dir_names = ['work/subscribe/']
-s1 = 'work/mac.txt'
-s2 = 'work/mac'
+dir_names = ['work/sub-import/']
+s1 = 'work/sub-export/mac.txt'
+s2 = 'work/sub-export/mac'
 
 file = open(s1,'w+') #清空文件
 for dirname in dir_names:
