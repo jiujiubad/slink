@@ -27,7 +27,7 @@ for path,dir_list,file_list in g:
                 yy = []
                 
                 # ssr 备注分组合并一个
-                group = str("%02d"%(datetime.datetime.now().month)) + str("%02d"%(datetime.datetime.now().day))
+                group = base64.urlsafe_b64encode(str("%02d"%(datetime.datetime.now().month)) + str("%02d"%(datetime.datetime.now().day)))
                 
                 for i in txt:
                     j = i.split('ssr://')[1]
