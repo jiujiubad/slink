@@ -27,7 +27,7 @@ for path,dir_list,file_list in g:
                 yy = []
                 
                 # ssr 备注分组合并一个
-                group = base64.urlsafe_b64encode(str("%02d"%(datetime.datetime.now().month)) + str("%02d"%(datetime.datetime.now().day)))
+                group = base64.urlsafe_b64encode(str("%02d"%(datetime.datetime.now().month)) + str("%02d"%(datetime.datetime.now().day))).strip('=')
                 
                 for i in txt:
                     j = i.split('ssr://')[1]
@@ -56,13 +56,17 @@ dir_names = ['work/temp/'] #可追加文件夹
 p4 = 'work/subscribe/'+s1
 if not os.path.exists(p4):
     os.mkdir(p4) 
+for i, f in enumerate(os.listdir(p4)): #多次执行时删除旧文件
+    if f.find("")>=0:
+        os.remove(p4+'/'+f)
 
-s1 = p4 + '/' + str("%02d"%(datetime.datetime.now().month)) + str("%02d"%(datetime.datetime.now().day)) + '.txt'
-s2 = p4 + '/' + str("%02d"%(datetime.datetime.now().month)) + str("%02d"%(datetime.datetime.now().day)) + '-' + ('%06x' % random.randrange(16**8)).upper()
+s2 = str("%02d"%(datetime.datetime.now().month)) + str("%02d"%(datetime.datetime.now().day))
+f2 = p4+'/'+s2+'.txt'
+f3 = p4+'/'+s2+'-'+('%06x' % random.randrange(16**8)).upper()
 
 for dirname in dir_names:
     file_names = os.listdir(dirname)  
-    file = open(s1,'a+') #a+是追加，若文件不存在就创建
+    file = open(f2,'a+') #a+是追加，若文件不存在就创建
 
     for filename in file_names:  
         filepath = dirname + filename  
@@ -73,10 +77,10 @@ for dirname in dir_names:
 
 # 生成订阅文件（txt 文件内容 base64 加密）
 try:
-    with open(s1,'r') as f:
+    with open(f2,'r') as f:
         d = f.read()
         d = (base64.b64encode(d)).strip('=')
-        with open(s2,'w+') as ff:
+        with open(f3,'w+') as ff:
             ff.writelines(d)
 except Exception as e:
     print (e)
