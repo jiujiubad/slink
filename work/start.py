@@ -5,7 +5,7 @@ import base64, requests, os, shutil, datetime, random
 s1 = str(datetime.datetime.now().year) + str("%02d"%(datetime.datetime.now().month))
 p1 = 'work/link-export/'+s1
 p2 = 'work/link-import/'+s1
-p3 = 'work/temp'
+p3 = 'work/tmp'
 if not os.path.exists(p1):
     os.mkdir(p1) 
 if not os.path.exists(p2):
@@ -52,18 +52,9 @@ for path,dir_list,file_list in g:
 
 
 # 合并成一个 txt 文件
-dir_names = ['work/temp/'] #可追加文件夹
-p4 = 'work/subscribe/'+s1
-if not os.path.exists(p4):
-    os.mkdir(p4) 
-for i, f in enumerate(os.listdir(p4)): #多次执行时删除旧文件
-    if f.find("")>=0:
-        os.remove(p4+'/'+f)
-
-s2 = str("%02d"%(datetime.datetime.now().month)) + str("%02d"%(datetime.datetime.now().day))
-f2 = p4+'/'+s2+'.txt'
-f3 = p4+'/'+s2+'-'+('%06x' % random.randrange(16**8)).upper()
-
+dir_names = ['work/tmp/'] #可继续追加文件夹
+f2 = 'work/subscribe/mac.txt'
+f3 = 'work/subscribe/mac'
 for dirname in dir_names:
     file_names = os.listdir(dirname)  
     file = open(f2,'a+') #a+是追加，若文件不存在就创建
@@ -89,7 +80,7 @@ except Exception as e:
 # 使用方法：
 # 把多份订阅 txt（名字改为月日第几份 080801.txt）放在 work/today 文件夹，执行 python work/start.py
 # 1、其中 ssr 备注分组，根据第 30-33 行代码修改 group
-# 2、link-import 和 link-export 是每份文件处理前后，subscribe 是处理完的集合文件，temp 是处理过程中用到的每次处理前会清空
+# 2、link-import 和 link-export 是每份文件处理前后，subscribe 是处理完的集合文件，tmp 是处理过程中用到的每次处理前会清空
 
 ## 用过的语法：
 # 调试，用 print
